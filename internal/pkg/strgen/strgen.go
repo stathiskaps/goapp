@@ -2,6 +2,7 @@ package strgen
 
 import (
 	"goapp/pkg/util"
+	"log"
 	"sync"
 	"time"
 )
@@ -37,8 +38,13 @@ func (s *StringGenerator) mainLoop() {
 	defer s.running.Done()
 
 	for {
+		hexStr, err := util.RandomHex(5)
+		if err != nil {
+			log.Printf("Error while generating random hex string (%v), skipping a beat\n", err)
+			continue
+		}
 		select {
-		case s.strChan <- util.RandString(10):
+		case s.strChan <- hexStr:
 		case <-s.quitChannel:
 			return
 		default:
