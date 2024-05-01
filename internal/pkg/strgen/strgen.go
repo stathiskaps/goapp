@@ -40,7 +40,7 @@ func (s *StringGenerator) mainLoop() {
 	for {
 		hexStr, err := util.RandomHex(5)
 		if err != nil {
-			log.Printf("Error while generating random hex string (%v), skipping a beat\n", err)
+			log.Printf("Error while generating a random hex string (%v), skipping a beat\n", err)
 			continue
 		}
 		select {
